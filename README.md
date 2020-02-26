@@ -1,4 +1,4 @@
-# cascader
+# 使用vue组件实现的级联选择器
 
 ## Project setup
 ```

@@ -1,28 +1,77 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    {{text}}
+    <cascader :data="data" @on-change="handleChange" v-model="value"></cascader>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import cascader from './components/cascader';
 export default {
-  name: 'App',
   components: {
-    HelloWorld
+    cascader
+  },
+  data () {
+    return {
+      text: '未选择',
+      value: ['jiangsu', 'suzhou', 'zhuozhengyuan'],
+      data: [
+        {
+          value: 'beijing',
+          label: '北京',
+          children: [
+            {
+              value: 'gugong',
+              label: '故宫'
+            },
+            {
+              value: 'tiantan',
+              label: '天坛'
+            }
+          ]
+        },
+        {
+          value: 'jiangsu',
+          label: '江苏',
+          children: [
+            {
+              value: 'suzhou',
+              label: '苏州',
+              children: [
+                {
+                  value: 'zhuozhengyuan',
+                  label: '拙政园'
+                },
+                {
+                  value: 'shiziling',
+                  label: '狮子林'
+                },
+              ]
+            },
+            {
+              value: 'nanjing',
+              label: '南京'
+            }
+          ]
+        },
+        
+      ],
+    }
+  },
+  methods: {
+    handleChange (val, selectedData) {
+      this.text = selectedData.map(o => o.label).join(', ');
+    }
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+ul {
+  list-style: none;
+  border: 1px solid black;
+}
+li {
+  border: 1px solid red;
 }
 </style>
